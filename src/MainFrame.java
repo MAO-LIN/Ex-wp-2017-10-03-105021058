@@ -5,11 +5,17 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame{
     private Container cp;
-    private JButton btn1=new JButton("Add");
-    private JButton btn2=new JButton("Sub");
-    private int cont=0;
-    private JLabel lb1=new JLabel("0");
-    private JButton btn3=new JButton("Exit");
+    private JButton btn1=new JButton("原文");
+    private JButton btn2=new JButton("解密");
+    private JButton btn3=new JButton("Clear");
+    private JTextArea jtaL=new JTextArea();
+    private JTextArea jtaR=new JTextArea();
+    private JTextField jtfkey=new JTextField("3");
+    private JPanel jpnC=new JPanel(new GridLayout(6,1,3,3));
+    private JScrollPane jspL=new JScrollPane(jtaL);
+    private JScrollPane jspR=new JScrollPane(jtaR);
+    private JLabel lb1=new JLabel("key");
+    private JButton btn4=new JButton("Exit");
 
     public MainFrame(){
         init();
@@ -20,24 +26,48 @@ public class MainFrame extends JFrame{
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         cp = this.getContentPane();
         lb1.setHorizontalAlignment(SwingConstants.CENTER);
-        cp.add(btn1);
-        cp.add(lb1);
-        cp.add(btn2);
-        cp.add(btn3);
-        cp.setLayout(new GridLayout(5,1,3,3));
+        jpnC.add(btn1);
+        jpnC.add(btn2);
+        jpnC.add(lb1);
+        jpnC.add(jtfkey);
+        jpnC.add(btn3);
+        jpnC.add(btn4);
+        jspL.setPreferredSize(new Dimension(200,400));
+        jspR.setPreferredSize(new Dimension(200,400));
+        jtaL.setLineWrap(true);
+        jtaR.setLineWrap(true);
+        cp.setLayout(new BorderLayout(3,3));
+        cp.add(jpnC,BorderLayout.CENTER);
+        cp.add(jspL,BorderLayout.WEST);
+        cp.add(jspR,BorderLayout.EAST);
         btn1.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lb1.setText(Integer.toString(++cont));
+               jtaL.setText("The Department of Computer Science an" +
+                       "d Information Engineering, formerly the Departme" +
+                       "nt of Information Technology, was established in 200" +
+                       "1. The department first offered a Master program only. In" +
+                       " 2002, the undergraduate program was established. The Doctoral p" +
+                       "rogram was established in 2006. E" +
+                       "ach year the department admits about 80 undergraduat" +
+                       "es, 15 graduate students and 3 Ph.D. students.");
             }
         });
         btn2.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lb1.setText(Integer.toString(--cont));
+                int key=Integer.parseInt(jtfkey.getText());
+                char data[]= jtaL.getText().toCharArray();
+                int leng=data.length;
+                for(int i=0;i<leng;i++){
+                    data[i]+=key;
+
+                };
+                String str1=new String(data);
+                jtaR.setText(str1);
             }
         });
-        btn3.addActionListener(new AbstractAction() {
+        btn4.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
