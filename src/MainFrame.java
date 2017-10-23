@@ -67,6 +67,13 @@ public class MainFrame extends JFrame{
                 jtaR.setText(str1);
             }
         });
+        btn3.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jtaR.setText("");
+                jtaL.setText("");
+            }
+        });
         btn4.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
